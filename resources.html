@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Resources · NOAC Karate Dojo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+JP:wght@300;400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1410;
+    --parchment: #f5f0e8;
+    --red: #8b1a1a;
+    --gold: #b8922a;
+    --mid: #3d2b1f;
+    --light: #e8e0d0;
+    --white: #fdfaf4;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--white); color: var(--ink); font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px; line-height: 1.7; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--ink); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 60px; border-bottom: 2px solid var(--gold); }
+  .nav-brand { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; text-decoration: none; }
+  .nav-back { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--light); text-decoration: none; transition: color 0.2s; display: flex; align-items: center; gap: 0.5rem; }
+  .nav-back:hover { color: var(--gold); }
+
+  /* HERO */
+  .page-hero { background: var(--ink); padding: 7rem 2.5rem 4rem; position: relative; overflow: hidden; }
+  .page-hero-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 2; }
+  .hero-kana { font-family: 'Noto Serif JP', serif; font-size: 12rem; color: var(--red); opacity: 0.08; line-height: 1; position: absolute; top: -2rem; right: 0; pointer-events: none; }
+  .page-eyebrow { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.32em; color: var(--gold); text-transform: uppercase; margin-bottom: 1rem; }
+  .page-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 300; color: var(--white); line-height: 1.05; }
+  .page-title em { font-style: italic; color: var(--gold); }
+  .page-sub { font-size: 1.05rem; color: rgba(245,240,232,0.6); font-style: italic; max-width: 560px; margin-top: 1.25rem; }
+  .hero-rule { width: 50px; height: 2px; background: var(--red); margin: 2rem 0 1rem; }
+
+  /* TOC */
+  .toc-bar { background: var(--red); }
+  .toc-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 0; }
+  .toc-link { font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.8); text-decoration: none; padding: 1rem 1.75rem; border-right: 1px solid rgba(255,255,255,0.12); transition: all 0.2s; white-space: nowrap; }
+  .toc-link:hover { background: rgba(255,255,255,0.1); color: var(--white); }
+
+  /* MAIN LAYOUT */
+  .main-inner { max-width: 1100px; margin: 0 auto; padding: 5rem 2.5rem; }
+
+  /* SECTION HEADERS */
+  .resource-section { margin-bottom: 5rem; scroll-margin-top: 80px; }
+  .section-header { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--light); }
+  .section-kana { font-family: 'Noto Serif JP', serif; font-size: 2rem; color: var(--red); opacity: 0.25; line-height: 1; }
+  .section-title-wrap { }
+  .section-label { font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.2rem; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: var(--ink); line-height: 1.1; }
+  .section-desc { font-size: 0.97rem; color: var(--mid); font-style: italic; max-width: 680px; margin-top: 0.75rem; line-height: 1.65; }
+
+  /* INTRO CARD */
+  .intro-card { background: var(--ink); padding: 3rem; margin-bottom: 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .intro-card p { font-size: 0.97rem; color: rgba(245,240,232,0.8); line-height: 1.72; }
+  .intro-card h3 { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+  .intro-links { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1.5rem; }
+  .intro-link { display: flex; align-items: center; gap: 0.75rem; font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; color: var(--gold); text-decoration: none; padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.2s; }
+  .intro-link:hover { color: var(--white); }
+  .intro-link::before { content: '→'; color: var(--red); flex-shrink: 0; }
+
+  /* SUBSECTION */
+  .subsection { margin-bottom: 3rem; }
+  .subsection-title { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mid); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px dotted var(--light); }
+
+  /* RESOURCE GRID */
+  .resource-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1px; background: var(--light); }
+  .resource-card { background: var(--white); padding: 1.5rem 1.75rem; display: flex; flex-direction: column; gap: 0.4rem; transition: background 0.15s; }
+  .resource-card:hover { background: var(--parchment); }
+  .resource-card a { text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 0.4rem; height: 100%; }
+  .resource-type { font-family: 'Space Mono', monospace; font-size: 0.48rem; letter-spacing: 0.2em; text-transform: uppercase; }
+  .resource-type.yt { color: #c4302b; }
+  .resource-type.web { color: var(--gold); }
+  .resource-type.doc { color: #4285f4; }
+  .resource-name { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: var(--ink); line-height: 1.25; font-weight: 400; }
+  .resource-sub { font-family: 'Space Mono', monospace; font-size: 0.52rem; color: rgba(61,43,31,0.45); letter-spacing: 0.05em; }
+  .resource-arrow { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--red); margin-top: auto; padding-top: 0.75rem; opacity: 0; transition: opacity 0.15s; }
+  .resource-card:hover .resource-arrow { opacity: 1; }
+
+  /* KATA GRID — slightly wider cards */
+  .kata-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1px; background: var(--light); }
+  .kata-card { background: var(--white); padding: 1.5rem; transition: background 0.15s; }
+  .kata-card:hover { background: var(--parchment); }
+  .kata-card a { text-decoration: none; color: inherit; display: block; }
+  .kata-number { font-family: 'Space Mono', monospace; font-size: 0.5rem; color: var(--red); letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+  .kata-name { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--ink); line-height: 1.2; margin-bottom: 0.2rem; }
+  .kata-moves { font-family: 'Space Mono', monospace; font-size: 0.52rem; color: rgba(61,43,31,0.4); letter-spacing: 0.08em; }
+  .kata-links { display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.75rem; }
+  .kata-link { font-family: 'Space Mono', monospace; font-size: 0.52rem; color: var(--gold); text-decoration: none; letter-spacing: 0.05em; display: flex; align-items: center; gap: 0.4rem; transition: color 0.15s; }
+  .kata-link:hover { color: var(--red); }
+  .kata-link::before { content: '▶'; font-size: 0.4rem; }
+
+  /* KUMITE LIST */
+  .kumite-list { display: flex; flex-direction: column; gap: 1px; background: var(--light); }
+  .kumite-item { background: var(--white); padding: 1.5rem 2rem; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2rem; transition: background 0.15s; }
+  .kumite-item:hover { background: var(--parchment); }
+  .kumite-name { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--ink); }
+  .kumite-desc { font-family: 'Space Mono', monospace; font-size: 0.52rem; color: rgba(61,43,31,0.5); letter-spacing: 0.06em; margin-top: 0.2rem; }
+  .kumite-links-col { display: flex; gap: 0.5rem; flex-shrink: 0; }
+  .kumite-link { font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); text-decoration: none; padding: 0.35rem 0.75rem; border: 1px solid var(--red); transition: all 0.15s; white-space: nowrap; }
+  .kumite-link:hover { background: var(--red); color: var(--white); }
+
+  /* DOJO KUN */
+  .dojo-kun-box { background: var(--ink); padding: 3.5rem; margin-bottom: 4rem; }
+  .kun-header { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  .kun-sub { font-family: 'Space Mono', monospace; font-size: 0.52rem; color: rgba(245,240,232,0.35); letter-spacing: 0.1em; margin-bottom: 2rem; }
+  .kun-list { list-style: none; }
+  .kun-item { display: grid; grid-template-columns: 2rem 1fr; gap: 1.5rem; padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); align-items: baseline; }
+  .kun-item:last-child { border-bottom: none; }
+  .kun-n { font-family: 'Space Mono', monospace; font-size: 0.5rem; color: var(--red); }
+  .kun-en { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--white); font-weight: 300; }
+  .kun-jp { display: block; font-family: 'Noto Serif JP', serif; font-size: 0.7rem; color: rgba(245,240,232,0.3); margin-top: 0.15rem; }
+  .kun-video-link { display: inline-flex; align-items: center; gap: 0.4rem; font-family: 'Space Mono', monospace; font-size: 0.52rem; color: var(--gold); text-decoration: none; margin-top: 1.5rem; padding: 0.6rem 1.25rem; border: 1px solid var(--gold); transition: all 0.2s; }
+  .kun-video-link:hover { background: var(--gold); color: var(--ink); }
+
+  /* TESTING BOX */
+  .testing-callout { background: var(--parchment); padding: 2.5rem 3rem; border-left: 4px solid var(--gold); margin-bottom: 2rem; }
+  .testing-callout h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--ink); margin-bottom: 0.75rem; }
+  .testing-callout p { color: var(--mid); font-size: 0.97rem; line-height: 1.68; margin-bottom: 0.75rem; }
+  .testing-callout a { color: var(--red); text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; }
+  .testing-callout a:hover { color: var(--mid); }
+
+  /* BOTTOM QUOTE */
+  .bottom-quote { background: var(--red); padding: 4rem 2.5rem; text-align: center; }
+  .bottom-quote blockquote { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.4rem, 3vw, 2.2rem); font-style: italic; font-weight: 300; color: var(--white); max-width: 700px; margin: 0 auto 1rem; line-height: 1.4; }
+  .bottom-quote cite { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+  .bottom-quote a { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); border: 1px solid rgba(255,255,255,0.4); padding: 0.75rem 1.5rem; text-decoration: none; margin-top: 2rem; transition: all 0.2s; }
+  .bottom-quote a:hover { background: rgba(255,255,255,0.1); border-color: var(--white); }
+
+  /* FOOTER */
+  footer { background: var(--ink); padding: 2.5rem 2.5rem; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.06); }
+  .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-style: italic; color: var(--gold); }
+  .footer-brand span { display: block; font-family: 'Space Mono', monospace; font-size: 0.46rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(245,240,232,0.3); font-style: normal; margin-top: 0.2rem; }
+  .footer-copy { font-family: 'Space Mono', monospace; font-size: 0.46rem; letter-spacing: 0.08em; color: rgba(245,240,232,0.2); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .intro-card { grid-template-columns: 1fr; }
+    .kumite-item { grid-template-columns: 1fr; }
+    .kumite-links-col { flex-wrap: wrap; }
+    nav { padding: 0 1.25rem; }
+    .main-inner { padding: 3rem 1.5rem; }
+    .page-hero { padding: 6rem 1.5rem 3rem; }
+    .toc-inner { overflow-x: auto; flex-wrap: nowrap; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .dojo-kun-box { padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="noac_karate_website.html" class="nav-brand">NOAC Karate</a>
+  <a href="noac_karate_website.html" class="nav-back">← Back to Main Site</a>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="hero-kana">道</div>
+    <p class="page-eyebrow">Sensei Doug Walsh · 4th Dan JKA</p>
+    <h1 class="page-title">Student<br><em>Resources</em></h1>
+    <div class="hero-rule"></div>
+    <p class="page-sub">A curated library of instructional videos, reference materials, and study guides to support your training in Shotokan Karate-Do.</p>
+  </div>
+</div>
+
+<!-- TOC BAR -->
+<div class="toc-bar">
+  <div class="toc-inner">
+    <a href="#getting-started" class="toc-link">Getting Started</a>
+    <a href="#dojo-kun" class="toc-link">Dojo Kun</a>
+    <a href="#kihon" class="toc-link">Kihon — Basics</a>
+    <a href="#kata" class="toc-link">Kata — Forms</a>
+    <a href="#kumite" class="toc-link">Kumite — Sparring</a>
+    <a href="#testing" class="toc-link">Rank Testing</a>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main-inner">
+
+  <!-- INTRO CARD -->
+  <div class="intro-card">
+    <div>
+      <h3>About This Guide</h3>
+      <p>Sensei Doug Walsh has assembled these resources to support students in their study and practice of Karate-Do. Use the hyperlinks throughout this page to access instructional videos, reference documents, and articles that will deepen your understanding of Shotokan technique, tradition, and philosophy.</p>
+      <p style="margin-top:1rem;">The foundation of karate is kihon (basic techniques), kata (forms), and kumite (sparring). Upon these three rest all technique, all speed, all strength, and all progress in karate.</p>
+    </div>
+    <div>
+      <h3>Quick Links</h3>
+      <div class="intro-links">
+        <a href="https://www.lkakarate.com/single-post/2020/08/05/Becoming-a-Beginner" target="_blank" class="intro-link">Becoming a Beginner</a>
+        <a href="https://www.lkakarate.com/single-post/2018/12/21/karate-do-and-children" target="_blank" class="intro-link">Karate-Do and Children</a>
+        <a href="https://www.lkakarate.com/youthprogram" target="_blank" class="intro-link">LKA Youth Program</a>
+        <a href="https://www.jka.or.jp/en/about-jka/techniques/" target="_blank" class="intro-link">JKA: The Inseparable Trinity → Kime</a>
+        <a href="https://drive.google.com/file/d/1fzx4iEl6Wk-vfFEzrGOkzqHSxy2VDtMe/view?usp=sharing" target="_blank" class="intro-link">The Kata Handbook (PDF)</a>
+        <a href="https://www.karatedo.asia/shotokan-ryu-katas/" target="_blank" class="intro-link">Shotokan Karate Kata Reference</a>
+        <a href="https://www.jka.or.jp/en/about-jka/dan-ranking/" target="_blank" class="intro-link">Kyu/Dan Testing Syllabus (JKA)</a>
+        <a href="https://www.lkakarate.com/single-post/return-to-a-beginner-s-mind" target="_blank" class="intro-link">Return to a Beginner's Mind</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOJO KUN -->
+  <div class="resource-section" id="dojo-kun">
+    <div class="section-header">
+      <div class="section-kana">道</div>
+      <div class="section-title-wrap">
+        <p class="section-label">Philosophy</p>
+        <h2 class="section-title">Dojo Kun</h2>
+        <p class="section-desc">The five principles of Karate-Do — the rules of the dojo and the rules of the Karate-ka outside of the dojo. Recited at the close of every class.</p>
+      </div>
+    </div>
+    <div class="dojo-kun-box">
+      <p class="kun-header">Shotokan Dojo Kun</p>
+      <p class="kun-sub">Read right to left in the Japanese tradition</p>
+      <ul class="kun-list">
+        <li class="kun-item">
+          <span class="kun-n">01</span>
+          <div><span class="kun-en">Seek perfection of character</span><span class="kun-jp">Hitotsu — Jinkaku kansei ni tsutomeru koto</span></div>
+        </li>
+        <li class="kun-item">
+          <span class="kun-n">02</span>
+          <div><span class="kun-en">Be faithful</span><span class="kun-jp">Hitotsu — Makoto no michi o mamoru koto</span></div>
+        </li>
+        <li class="kun-item">
+          <span class="kun-n">03</span>
+          <div><span class="kun-en">Endeavour</span><span class="kun-jp">Hitotsu — Doryoku no seishin o yashinau koto</span></div>
+        </li>
+        <li class="kun-item">
+          <span class="kun-n">04</span>
+          <div><span class="kun-en">Respect others</span><span class="kun-jp">Hitotsu — Reigi o omonzuru koto</span></div>
+        </li>
+        <li class="kun-item">
+          <span class="kun-n">05</span>
+          <div><span class="kun-en">Refrain from violent behaviour</span><span class="kun-jp">Hitotsu — Kekki no yuu o imashimuru koto</span></div>
+        </li>
+      </ul>
+      <a href="https://www.youtube.com/watch?v=0lZzjN_HLUQ&t=8s" target="_blank" class="kun-video-link">▶ Watch: Dojo Kun Recitation</a>
+    </div>
+  </div>
+
+  <!-- GETTING STARTED -->
+  <div class="resource-section" id="getting-started">
+    <div class="section-header">
+      <div class="section-kana">始</div>
+      <div class="section-title-wrap">
+        <p class="section-label">New Students</p>
+        <h2 class="section-title">Getting Started</h2>
+        <p class="section-desc">Becoming a student of Shotokan Karate means preparing to train the mind and spirit, as well as the body.</p>
+      </div>
+    </div>
+    <div class="resource-grid">
+      <div class="resource-card">
+        <a href="https://www.lkakarate.com/single-post/2020/08/05/Becoming-a-Beginner" target="_blank">
+          <span class="resource-type web">Article · LKA</span>
+          <span class="resource-name">Becoming a Beginner</span>
+          <span class="resource-sub">Click link and scroll all the way down to read</span>
+          <span class="resource-arrow">Read →</span>
+        </a>
+      </div>
+      <div class="resource-card">
+        <a href="https://www.lkakarate.com/single-post/2018/12/21/karate-do-and-children" target="_blank">
+          <span class="resource-type web">Article · LKA</span>
+          <span class="resource-name">Karate-Do and Children</span>
+          <span class="resource-sub">Practice as youth and lifetime activity</span>
+          <span class="resource-arrow">Read →</span>
+        </a>
+      </div>
+      <div class="resource-card">
+        <a href="https://www.lkakarate.com/youthprogram" target="_blank">
+          <span class="resource-type web">Program · LKA</span>
+          <span class="resource-name">LKA Youth Program</span>
+          <span class="resource-sub">Information on youth karate classes</span>
+          <span class="resource-arrow">Visit →</span>
+        </a>
+      </div>
+      <div class="resource-card">
+        <a href="https://www.budoonline.co.uk/blogs/news/buying-a-karate-uniform-gi-guide-to-choosing-the-correct-suit" target="_blank">
+          <span class="resource-type web">Guide</span>
+          <span class="resource-name">Dogi — Choosing Your Uniform</span>
+          <span class="resource-sub">Guide to selecting the correct karate gi</span>
+          <span class="resource-arrow">Read →</span>
+        </a>
+      </div>
+      <div class="resource-card">
+        <a href="https://www.lkakarate.com/single-post/return-to-a-beginner-s-mind" target="_blank">
+          <span class="resource-type web">Article · LKA</span>
+          <span class="resource-name">Return to a Beginner's Mind</span>
+          <span class="resource-sub">Mandatory for continued growth, humility and progress</span>
+          <span class="resource-arrow">Read →</span>
+        </a>
+      </div>
+      <div class="resource-card">
+        <a href="https://www.jka.or.jp/en/about-jka/techniques/" target="_blank">
+          <span class="resource-type web">Reference · JKA</span>
+          <span class="resource-name">The Inseparable Trinity → Kime</span>
+          <span class="resource-sub">JKA's foundational technique philosophy</span>
+          <span class="resource-arrow">Visit →</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- KIHON -->
+  <div class="resource-section" id="kihon">
+    <div class="section-header">
+      <div class="section-kana">基</div>
+      <div class="section-title-wrap">
+        <p class="section-label">Fundamentals</p>
+        <h2 class="section-title">Kihon — Basics</h2>
+        <p class="section-desc">The foundation. Stances, blocks, strikes, and kicks practiced with precision and repetition. Fast forward to the 4-minute mark of the overview video. Everything in karate is built on kihon.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:1.5rem;">
+      <a href="https://www.youtube.com/watch?v=9QmXZLNgZvE" target="_blank" style="display:inline-flex;align-items:center;gap:0.75rem;font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--white);background:var(--red);padding:0.8rem 1.75rem;text-decoration:none;">▶ Kihon Overview Video (fast-forward to 4:00)</a>
+    </div>
+
+    <div class="subsection">
+      <p class="subsection-title">Stances — Dachi</p>
+      <div class="resource-grid">
+        <div class="resource-card"><a href="https://www.youtube.com/watch?v=QcRnV8VFYVo" target="_blank"><span class="resource-type yt">▶ YouTube</span><span class="resource-name">Stances Overview</span><span class="resource-arrow">Watch →</span></a></div>
+        <div class="resource-card"><a href="https://www.youtube.com/watch?v=Ts2Yyec7mQ8" target="_blank"><span class="resource-type yt">▶ YouTube</span><span class="resource-name">Zenkutsu-Dachi</span><span class="resource-sub">Front Stance</span><span class="resource-arrow">Watch →</span></a></div>
+        <div class="resource-card"><a href="https://www.youtube.com/watch?v=_i0s6Yr1cS4" target="_blank"><span class="resource-type yt">▶ YouTube</span><span class="resource-name">Kokutsu-Dachi</span><span class="resource-sub">Back Stance</span><span class="resource-arrow">Watch →</span></a></div>
+        <div class="resource-card"><a href="https://www.youtube.com/watch?v=ngwtWk_ECTk" target="_blank"><span class="resource-type yt">▶ YouTube</span><span class="resource-name">Kiba-Dachi</span><span class="resource-sub">Horse Stance</span><span class="resource-arrow">Watch →</span></a></div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <p class="subsection-title">Blocks — Uke</p>
+      <div class="resource-grid">
+        <div class="resource-card"><a href="https://www.youtube.com/watch?v=nTZznpXByYg" target="_blank"><span class="resource-type yt">▶ YouTube</span><span class="resource-name">Blocks Overview</span><span class="resource-arrow">Watch →</span></a></div>
+        <div class="resource-card"><a href="https://youtu.be/3Yk0R32Dn-k" target="_blank"><span class="resource-type yt">▶ YouTube</span><span class="resource-name">Gedan Barai #1</span><span class="resource-sub">Lower Sweeping Block</span><span class="resource-arrow">Watch →</span></a></div>
+        <div class="resource-card"><a href="https://youtu.be/azZL8RVYgmQ" target="_blank"><span class="resource-type yt">▶ YouTube</span><span class="resource-name">Gedan Barai #2</span><span class="resource-sub">Lower Sweeping Block</span><span class="resource-arrow">Watch →</span></a></div>
+        <div class="resource-card"><a href="https://youtu.be/OsvaPYUBnFY" target="_blank"><span class="resource-type yt">▶ YouTube</span><span class="resource-name">Age Uke</span><span class="resource-sub">Rising Block</span><span class="resource-arrow">Watch →</span></a></div>
+        <div class="resource-card"><a href="https://youtu.be/ekkwkvfBPb8?si=9xiaRooqiJkKZopz" target="_blank"><span class="resource-type yt">▶ YouTube</span><span class="resource-name">Age Uke #2</span><span class="resource-sub">Rising Block</span><span class="resource-arrow">Watch →</span></a></div>
+        <div class="resource-card"><a href="https://www.youtube.com/watch?v=YbetlAnKqUk" target="_blank"><span class="resource-type yt">▶ YouTube</span><span class="resource-name">Soto Uke</span><span class="resource-sub">Outside-to-inside Block</span><span class="resource-arrow">Watch →</span></a></div>
+        <div class="resource-card"><a href="https://youtu.be/YIyyH0KsANk?si=rzjjCp9aXVBeywa1" target="_blank"><span class="resource-type yt">▶ YouTube</span><span class="resource-name">Soto Uke #2</span><span class="resource-sub">Outside-to-inside Block</span><span class="resource-arrow">Watch →</span></a></div>
+        <div class="resource-card"><a href="https://www.youtube.com/watch?v=v4TDlGBzxDc" target="_blank"><span class="resource-type yt">▶ YouTube</span><span class="resource-name">Uchi Uke</span><span class="resource-sub">Inside-to-outside Block</span><span class="resource-arrow">Watch →</span></a></div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <p class="subsection-title">Strikes — Zuki</p>
+      <div class="resource-grid">
+        <div class="resource-card"><a href="https://youtu.be/qlahGOXesNo?feature=shared" target="_blank"><span class="resource-type yt">▶ YouTube</span><span class="resource-name">Choku Zuki</span><span class="resource-sub">Standing Punch</span><span class="resource-arrow">Watch →</span></a></div>
+        <div class="resource-card"><a href="https://youtu.be/s4e5HAPD0TQ?feature=shared" target="_blank"><span class="resource-type yt">▶ YouTube</span><span class="resource-name">Gyaku Zuki</span><span class="resource-sub">Reverse Punch</span><span class="resource-arrow">Watch →</span></a></div>
+        <div class="resource-card"><a href="https://www.youtube.com/watch?v=US2ZOtrmmM8" target="_blank"><span class="resource-type yt">▶ YouTube</span><span class="resource-name">Punches</span><span class="resource-sub">Additional Instruction</span><span class="resource-arrow">Watch →</span></a></div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <p class="subsection-title">Kicks — Geri</p>
+      <div class="resource-grid">
+        <div class="resource-card"><a href="https://youtu.be/fyNHa6I-2yM" target="_blank"><span class="resource-type yt">▶ YouTube</span><span class="resource-name">Mae-Geri Keage</span><span class="resource-sub">Front Snap Kick</span><span class="resource-arrow">Watch →</span></a></div>
+        <div class="resource-card"><a href="https://youtu.be/IFj5tPU0Usw" target="_blank"><span class="resource-type yt">▶ YouTube</span><span class="resource-name">Yoko Geri Keage #1</span><span class="resource-sub">Side Snap Kick</span><span class="resource-arrow">Watch →</span></a></div>
+        <div class="resource-card"><a href="https://www.youtube.com/watch?v=O0JdAmkP2FQ&t=678s" target="_blank"><span class="resource-type yt">▶ YouTube</span><span class="resource-name">Yoko Geri Keage #2</span><span class="resource-sub">Side Snap Kick</span><span class="resource-arrow">Watch →</span></a></div>
+        <div class="resource-card"><a href="https://youtu.be/Bc4SbLWVacM" target="_blank"><span class="resource-type yt">▶ YouTube</span><span class="resource-name">Yoko Geri Kekomi</span><span class="resource-sub">Side Thrust Kick</span><span class="resource-arrow">Watch →</span></a></div>
+        <div class="resource-card"><a href="https://www.youtube.com/watch?v=76MgBFVGjiE" target="_blank"><span class="resource-type yt">▶ YouTube</span><span class="resource-name">Mawashi Geri</span><span class="resource-sub">Roundhouse Kick</span><span class="resource-arrow">Watch →</span></a></div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <p class="subsection-title">Ido Kihon — Moving Techniques</p>
+      <div class="resource-grid">
+        <div class="resource-card"><a href="https://youtu.be/dBS2M4crV_k?feature=shared" target="_blank"><span class="resource-type yt">▶ YouTube</span><span class="resource-name">Gedan Barai / Gyaku Zuki</span><span class="resource-sub">Downward Block / Reverse Punch</span><span class="resource-arrow">Watch →</span></a></div>
+        <div class="resource-card"><a href="https://youtu.be/uFuTQrl6twQ?si=XFPqeuUXwR7ErQwb" target="_blank"><span class="resource-type yt">▶ YouTube</span><span class="resource-name">Uchi Uke / Gyaku Zuki</span><span class="resource-sub">Inside Block / Reverse Punch</span><span class="resource-arrow">Watch →</span></a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KATA -->
+  <div class="resource-section" id="kata">
+    <div class="section-header">
+      <div class="section-kana">型</div>
+      <div class="section-title-wrap">
+        <p class="section-label">Forms</p>
+        <h2 class="section-title">Kata</h2>
+        <p class="section-desc">Choreographed sequences of movement representing defense against imaginary opponents. The living library of karate — each kata a complete lesson in technique, timing, and spirit.</p>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2rem;">
+      <a href="https://www.youtube.com/watch?v=pWTspBwfKwk" target="_blank" style="display:inline-flex;align-items:center;gap:0.75rem;font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--white);background:var(--red);padding:0.8rem 1.75rem;text-decoration:none;">▶ Kata Overview Video</a>
+      <a href="https://www.karatedo.asia/shotokan-ryu-katas/" target="_blank" style="display:inline-flex;align-items:center;gap:0.75rem;font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:0.8rem 1.75rem;text-decoration:none;">Shotokan Kata Reference</a>
+      <a href="https://drive.google.com/file/d/1fzx4iEl6Wk-vfFEzrGOkzqHSxy2VDtMe/view?usp=sharing" target="_blank" style="display:inline-flex;align-items:center;gap:0.75rem;font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:0.8rem 1.75rem;text-decoration:none;">The Kata Handbook (PDF)</a>
+    </div>
+
+    <div class="subsection">
+      <p class="subsection-title">Beginner — Taikyoku & Heian Series</p>
+      <div class="kata-grid">
+        <div class="kata-card">
+          <p class="kata-number">KATA 01</p>
+          <p class="kata-name">Taikyoku Shodan</p>
+          <p class="kata-moves">Kihon Kata · 20 moves</p>
+          <div class="kata-links"><a href="https://www.youtube.com/watch?v=yzIQJsRJzEk" target="_blank" class="kata-link">Watch Video</a></div>
+        </div>
+        <div class="kata-card">
+          <p class="kata-number">KATA 02</p>
+          <p class="kata-name">Heian Shodan</p>
+          <p class="kata-moves">21 moves</p>
+          <div class="kata-links"><a href="https://www.youtube.com/watch?v=9D2yOzDsW8k" target="_blank" class="kata-link">Watch Video</a></div>
+        </div>
+        <div class="kata-card">
+          <p class="kata-number">KATA 03</p>
+          <p class="kata-name">Heian Nidan</p>
+          <p class="kata-moves">26 moves</p>
+          <div class="kata-links"><a href="https://www.youtube.com/watch?v=6Hc1NMdjU9U" target="_blank" class="kata-link">Watch Video</a></div>
+        </div>
+        <div class="kata-card">
+          <p class="kata-number">KATA 04</p>
+          <p class="kata-name">Heian Sandan</p>
+          <p class="kata-moves">20 moves</p>
+          <div class="kata-links"><a href="https://www.youtube.com/watch?v=8OI-FTV3-4o" target="_blank" class="kata-link">Watch Video</a></div>
+        </div>
+        <div class="kata-card">
+          <p class="kata-number">KATA 05</p>
+          <p class="kata-name">Heian Yondan</p>
+          <p class="kata-moves">27 moves</p>
+          <div class="kata-links"><a href="https://www.youtube.com/watch?v=HrAiTCcatbY" target="_blank" class="kata-link">Watch Video</a></div>
+        </div>
+        <div class="kata-card">
+          <p class="kata-number">KATA 06</p>
+          <p class="kata-name">Heian Godan</p>
+          <p class="kata-moves">23 moves</p>
+          <div class="kata-links"><a href="https://www.youtube.com/watch?v=dBFe54glhTs" target="_blank" class="kata-link">Watch Video</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <p class="subsection-title">Intermediate — Tekki Series</p>
+      <div class="kata-grid">
+        <div class="kata-card">
+          <p class="kata-number">KATA 07</p>
+          <p class="kata-name">Tekki Shodan</p>
+          <p class="kata-moves">29 moves</p>
+          <div class="kata-links">
+            <a href="https://www.youtube.com/watch?v=VAkA5zAosC4" target="_blank" class="kata-link">Watch Video</a>
+            <a href="https://www.youtube.com/watch?v=rroOQJifbSo" target="_blank" class="kata-link">Additional Instruction</a>
+          </div>
+        </div>
+        <div class="kata-card">
+          <p class="kata-number">KATA 08</p>
+          <p class="kata-name">Tekki Nidan</p>
+          <p class="kata-moves">24 moves</p>
+          <div class="kata-links">
+            <a href="https://www.youtube.com/watch?v=9uqw0g3E4BY" target="_blank" class="kata-link">Watch Video</a>
+            <a href="https://www.youtube.com/watch?v=xvJ7rkekSwY" target="_blank" class="kata-link">Additional Instruction</a>
+          </div>
+        </div>
+        <div class="kata-card">
+          <p class="kata-number">KATA 09</p>
+          <p class="kata-name">Tekki Sandan</p>
+          <p class="kata-moves">26 moves</p>
+          <div class="kata-links">
+            <a href="https://www.youtube.com/watch?v=-bmF_F2bDoc" target="_blank" class="kata-link">Watch Video</a>
+            <a href="https://www.youtube.com/watch?v=6nCfkHb9GUI" target="_blank" class="kata-link">Additional Instruction</a>
+            <a href="https://www.youtube.com/watch?v=CTyzY345X6Q" target="_blank" class="kata-link">Additional Tips</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <p class="subsection-title">Advanced Kata</p>
+      <div class="kata-grid">
+        <div class="kata-card">
+          <p class="kata-number">KATA 10</p>
+          <p class="kata-name">Bassai Dai</p>
+          <p class="kata-moves">42 moves</p>
+          <div class="kata-links"><a href="https://youtu.be/ny9EE8_flgI" target="_blank" class="kata-link">Watch Video</a></div>
+        </div>
+        <div class="kata-card">
+          <p class="kata-number">KATA 11</p>
+          <p class="kata-name">Kanku Dai</p>
+          <p class="kata-moves">65 moves</p>
+          <div class="kata-links"><a href="https://youtu.be/Jkv8Ks_fEqk" target="_blank" class="kata-link">Watch Video</a></div>
+        </div>
+        <div class="kata-card">
+          <p class="kata-number">KATA 12</p>
+          <p class="kata-name">Jion</p>
+          <p class="kata-moves">47 moves</p>
+          <div class="kata-links"><a href="https://www.youtube.com/watch?v=Lrr-c5RCKpo" target="_blank" class="kata-link">Watch Video</a></div>
+        </div>
+        <div class="kata-card">
+          <p class="kata-number">KATA 13</p>
+          <p class="kata-name">Jitte</p>
+          <p class="kata-moves">24 moves</p>
+          <div class="kata-links"><a href="https://www.youtube.com/watch?v=u4Hw9nipExg" target="_blank" class="kata-link">Watch Video</a></div>
+        </div>
+        <div class="kata-card">
+          <p class="kata-number">KATA 14</p>
+          <p class="kata-name">Enpi</p>
+          <p class="kata-moves">37 moves</p>
+          <div class="kata-links"><a href="https://www.youtube.com/watch?v=SW5907Eeo7c" target="_blank" class="kata-link">Watch Video</a></div>
+        </div>
+        <div class="kata-card">
+          <p class="kata-number">KATA 15</p>
+          <p class="kata-name">Gankaku</p>
+          <p class="kata-moves">Crane on a Rock</p>
+          <div class="kata-links"><a href="https://www.youtube.com/watch?v=4HobC6dj8jA" target="_blank" class="kata-link">Watch Video</a></div>
+        </div>
+        <div class="kata-card">
+          <p class="kata-number">KATA 16</p>
+          <p class="kata-name">Hangetsu</p>
+          <p class="kata-moves">Half Moon</p>
+          <div class="kata-links"><a href="https://www.youtube.com/watch?v=52cfzR0S6rU" target="_blank" class="kata-link">Watch Video</a></div>
+        </div>
+        <div class="kata-card">
+          <p class="kata-number">KATA 17</p>
+          <p class="kata-name">Ji'in</p>
+          <p class="kata-moves">38 moves</p>
+          <div class="kata-links"><a href="https://www.youtube.com/watch?v=RiG93fNAmz0" target="_blank" class="kata-link">Watch Video</a></div>
+        </div>
+        <div class="kata-card">
+          <p class="kata-number">KATA 18</p>
+          <p class="kata-name">Wankan</p>
+          <p class="kata-moves">24 moves · Crown of a King</p>
+          <div class="kata-links"><a href="https://www.youtube.com/watch?v=WfSChFnL4_s" target="_blank" class="kata-link">Watch Video</a></div>
+        </div>
+        <div class="kata-card">
+          <p class="kata-number">KATA 19</p>
+          <p class="kata-name">Meikyo</p>
+          <p class="kata-moves">33 moves · Bright Mirror</p>
+          <div class="kata-links"><a href="https://www.youtube.com/watch?v=MDbZdXCdEVE" target="_blank" class="kata-link">Watch Video</a></div>
+        </div>
+        <div class="kata-card">
+          <p class="kata-number">KATA 20</p>
+          <p class="kata-name">Chinte</p>
+          <p class="kata-moves">Incredible Hands</p>
+          <div class="kata-links"><a href="https://www.youtube.com/watch?v=ou14EWbogB0&t=161s" target="_blank" class="kata-link">Watch Video</a></div>
+        </div>
+        <div class="kata-card">
+          <p class="kata-number">KATA 21</p>
+          <p class="kata-name">Unsu</p>
+          <p class="kata-moves">Cloud Hands</p>
+          <div class="kata-links"><a href="https://www.youtube.com/watch?v=X-Dq32yOvSY" target="_blank" class="kata-link">Watch Video</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KUMITE -->
+  <div class="resource-section" id="kumite">
+    <div class="section-header">
+      <div class="section-kana">組</div>
+      <div class="section-title-wrap">
+        <p class="section-label">Partner Practice</p>
+        <h2 class="section-title">Kumite — Sparring</h2>
+        <p class="section-desc">Controlled partner practice that develops timing, distance, and fighting spirit. Kumite progresses from structured multi-step drills to free sparring.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:1.5rem;">
+      <a href="https://blackbeltwiki.com/shotokan-kumite" target="_blank" style="display:inline-flex;align-items:center;gap:0.75rem;font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:0.8rem 1.75rem;text-decoration:none;">Kumite Reference Guide →</a>
+    </div>
+
+    <div class="kumite-list">
+      <div class="kumite-item">
+        <div>
+          <p class="kumite-name">Gohon Kumite</p>
+          <p class="kumite-desc">5-Step Sparring · Joudan and Chudan attacks</p>
+        </div>
+        <div class="kumite-links-col">
+          <a href="https://www.youtube.com/watch?v=TRzRYYaS1rE" target="_blank" class="kumite-link">▶ Watch</a>
+        </div>
+      </div>
+      <div class="kumite-item">
+        <div>
+          <p class="kumite-name">Sanbon Kumite</p>
+          <p class="kumite-desc">3-Step Sparring · Parts 1–5</p>
+        </div>
+        <div class="kumite-links-col">
+          <a href="https://youtu.be/m84Vl08lVL4" target="_blank" class="kumite-link">▶ Parts 1 & 2</a>
+          <a href="https://www.youtube.com/watch?v=vLh0VxjiBkA&t=64s" target="_blank" class="kumite-link">▶ Parts 3, 4 & 5</a>
+        </div>
+      </div>
+      <div class="kumite-item">
+        <div>
+          <p class="kumite-name">Kihon Ippon Kumite</p>
+          <p class="kumite-desc">1-Step Basic Sparring</p>
+        </div>
+        <div class="kumite-links-col">
+          <a href="https://youtu.be/L0wu2Xo87Qg" target="_blank" class="kumite-link">▶ Watch</a>
+        </div>
+      </div>
+      <div class="kumite-item">
+        <div>
+          <p class="kumite-name">Jiyu Ippon Kumite</p>
+          <p class="kumite-desc">1-Step Semi-free Sparring</p>
+        </div>
+        <div class="kumite-links-col">
+          <a href="https://youtu.be/0guTaeF4__g" target="_blank" class="kumite-link">▶ Watch</a>
+          <a href="https://youtu.be/izcMJpd8XFQ" target="_blank" class="kumite-link">▶ Additional</a>
+        </div>
+      </div>
+      <div class="kumite-item">
+        <div>
+          <p class="kumite-name">Jiyu Kumite</p>
+          <p class="kumite-desc">Free Sparring</p>
+        </div>
+        <div class="kumite-links-col">
+          <a href="https://youtu.be/qSlVOYeiGrc" target="_blank" class="kumite-link">▶ Watch</a>
+          <a href="https://youtu.be/fU-_7Bjljm8" target="_blank" class="kumite-link">▶ Example</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTING -->
+  <div class="resource-section" id="testing">
+    <div class="section-header">
+      <div class="section-kana">段</div>
+      <div class="section-title-wrap">
+        <p class="section-label">Advancement</p>
+        <h2 class="section-title">Rank Testing</h2>
+        <p class="section-desc">There are 10 Kyu and 10 Dan ranks in JKA karate. All ranks are officially certified by the Japan Karate Association.</p>
+      </div>
+    </div>
+    <div class="testing-callout">
+      <h3>Kyu/Dan Testing Syllabus</h3>
+      <p>To obtain certification for each rank, you must fulfill the certification requirements and complete the testing procedure. Testing — or grading — occurs about every three months, must be pre-approved by your Sensei, and is carried out by a panel of instructors authorized as JKA technical examiners.</p>
+      <p>All certifications are issued by and recognized by the Japan Karate Association worldwide. Students may also test under Master Mikami directly and attend his special clinics throughout the year.</p>
+      <a href="https://www.jka.or.jp/en/about-jka/dan-ranking/" target="_blank">View JKA Dan Ranking Requirements →</a>
+    </div>
+  </div>
+
+</div><!-- end main-inner -->
+
+<!-- BOTTOM QUOTE -->
+<div class="bottom-quote">
+  <blockquote>"Going back to the mind of a beginner and going back to the beginning is mandatory to continue to learn, make progress, remain humble and to keep the mind of a beginner — no matter the length of one's training."</blockquote>
+  <cite>— Sensei Doug Walsh · 4th Dan, JKA</cite>
+  <br>
+  <a href="https://www.lkakarate.com/single-post/return-to-a-beginner-s-mind" target="_blank">Read: Return to a Beginner's Mind →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    NOAC Karate Dojo
+    <span>222 N. Rampart St · New Orleans, LA · noackarateclub@gmail.com</span>
+  </div>
+  <p class="footer-copy">© NOAC Karate Dojo · Louisiana Karate Association · JKA American Federation</p>
+</footer>
+
+</body>
+</html>
