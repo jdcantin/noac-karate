@@ -203,7 +203,57 @@
     .sensei-card, .contact-card { position: static; }
     .dojo-kun-block { padding: 2rem 1.5rem; }
   }
+
+  /* INQUIRY FORM */
+  #inquiry { background: var(--ink); }
+  #inquiry .section-title { color: var(--white); }
+  #inquiry .section-label { color: var(--gold); }
+  #inquiry .divider { background: var(--red); }
+  .form-intro { font-size: 1.05rem; color: rgba(245,240,232,0.65); max-width: 580px; margin-bottom: 3rem; font-style: italic; }
+  .inquiry-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-label { font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+  .form-input, .form-select, .form-textarea {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--white);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1rem;
+    padding: 0.85rem 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--gold); }
+  .form-input::placeholder, .form-textarea::placeholder { color: rgba(245,240,232,0.3); }
+  .form-select option { background: var(--ink); color: var(--white); }
+  .form-textarea { resize: vertical; min-height: 120px; }
+  .form-submit {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--red);
+    border: none;
+    padding: 1rem 2.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 0.5rem;
+  }
+  .form-submit:hover { background: #a82020; }
+  .form-note { font-family: 'Space Mono', monospace; font-size: 0.52rem; color: rgba(245,240,232,0.35); letter-spacing: 0.05em; margin-top: 0.5rem; }
+  .h-captcha { margin-top: 0.5rem; }
+  .form-success { display: none; background: rgba(184,146,42,0.15); border: 1px solid var(--gold); padding: 2rem; text-align: center; }
+  .form-success p { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--gold); font-style: italic; }
+  @media (max-width: 768px) { .inquiry-grid { grid-template-columns: 1fr; } .form-group.full { grid-column: 1; } }
+
 </style>
+  <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 </head>
 <body>
 
@@ -217,6 +267,7 @@
     <li><a href="#rules">Dojo Rules</a></li>
     <li><a href="#curriculum">Curriculum</a></li>
     <li><a href="#calendar">Schedule</a></li>
+    <li><a href="#inquiry">Inquire</a></li>
   </ul>
 </nav>
 
@@ -544,6 +595,122 @@
   </div>
 </section>
 
+<!-- INQUIRY FORM -->
+<section id="inquiry">
+  <div class="section-inner">
+    <p class="section-label">Get In Touch</p>
+    <h2 class="section-title">Start Your<br><em>Journey</em></h2>
+    <div class="divider"></div>
+    <p class="form-intro">Tell us a little about yourself and your interest in karate. Sensei Walsh will be in touch personally.</p>
+
+    <div id="form-success" class="form-success">
+      <p>OSU. Your message has been received — Sensei Walsh will be in touch soon.</p>
+    </div>
+
+    <form id="inquiry-form" action="https://formspree.io/f/meebjyrj" method="POST">
+      <div class="inquiry-grid">
+
+        <div class="form-group">
+          <label class="form-label" for="name">Full Name *</label>
+          <input class="form-input" type="text" id="name" name="name" placeholder="Your name" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Email Address *</label>
+          <input class="form-input" type="email" id="email" name="email" placeholder="your@email.com" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="phone">Phone (optional)</label>
+          <input class="form-input" type="tel" id="phone" name="phone" placeholder="(504) 000-0000">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="experience">Martial Arts Experience *</label>
+          <select class="form-select" id="experience" name="experience" required>
+            <option value="" disabled selected>Select your level</option>
+            <option value="No experience">No experience — complete beginner</option>
+            <option value="Some background">Some martial arts background</option>
+            <option value="Currently training">Currently training elsewhere</option>
+            <option value="Returning student">Returning student</option>
+            <option value="Experienced karateka">Experienced karateka</option>
+          </select>
+        </div>
+
+        <div class="form-group full">
+          <label class="form-label" for="interest">What brings you to karate? *</label>
+          <input class="form-input" type="text" id="interest" name="interest" placeholder="e.g. fitness, self-defense, tradition, personal development..." required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="referral">How did you hear about us?</label>
+          <select class="form-select" id="referral" name="referral">
+            <option value="" disabled selected>Select one</option>
+            <option value="Google">Google search</option>
+            <option value="Instagram">Instagram</option>
+            <option value="Facebook">Facebook</option>
+            <option value="Friend/referral">Friend or referral</option>
+            <option value="Walk-by">Walked by NOAC</option>
+            <option value="NOAC member">Already an NOAC member</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="availability">Best time to reach you?</label>
+          <select class="form-select" id="availability" name="availability">
+            <option value="" disabled selected>Select one</option>
+            <option value="Morning">Morning</option>
+            <option value="Afternoon">Afternoon</option>
+            <option value="Evening">Evening</option>
+            <option value="Weekends">Weekends</option>
+            <option value="Any time">Any time</option>
+          </select>
+        </div>
+
+        <div class="form-group full">
+          <label class="form-label" for="message">Anything else you'd like us to know? (optional)</label>
+          <textarea class="form-textarea" id="message" name="message" placeholder="Questions, injuries, scheduling concerns, goals..."></textarea>
+        </div>
+
+        <div class="form-group full">
+          <div class="h-captcha" data-sitekey="10000000-ffff-ffff-ffff-000000000001" data-theme="dark"></div>
+          <p class="form-note">* Required fields. Your information is never shared or sold.</p>
+        </div>
+
+        <div class="form-group full">
+          <button type="submit" class="form-submit">Send Inquiry &rarr;</button>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  var form = document.getElementById('inquiry-form');
+  var success = document.getElementById('form-success');
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var data = new FormData(form);
+    fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    }).then(function(resp) {
+      if (resp.ok) {
+        form.style.display = 'none';
+        success.style.display = 'block';
+        success.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        alert('Something went wrong — please email us directly at noackarate@gmail.com');
+      }
+    }).catch(function() {
+      alert('Something went wrong — please email us directly at noackarate@gmail.com');
+    });
+  });
+</script>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-brand">
@@ -557,6 +724,7 @@
     <li><a href="#rules">Rules</a></li>
     <li><a href="#curriculum">Curriculum</a></li>
     <li><a href="#calendar">Schedule</a></li>
+    <li><a href="#inquiry">Inquire</a></li>
   </ul>
   <p class="footer-copy">© NOAC Karate Dojo · Louisiana Karate Association · JKA American Federation</p>
 </footer>
