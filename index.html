@@ -252,6 +252,31 @@
   .form-success p { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--gold); font-style: italic; }
   @media (max-width: 768px) { .inquiry-grid { grid-template-columns: 1fr; } .form-group.full { grid-column: 1; } }
 
+
+  /* CTA BANNER */
+  .cta-banner { background: var(--red); }
+  .cta-banner-inner { max-width: 1100px; margin: 0 auto; padding: 2.5rem 2.5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+  .cta-banner-text h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; color: var(--white); font-style: italic; margin-bottom: 0.25rem; }
+  .cta-banner-text p { font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.65); }
+  .cta-banner-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .cta-btn-white { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); background: var(--white); padding: 0.85rem 1.75rem; text-decoration: none; transition: all 0.2s; white-space: nowrap; }
+  .cta-btn-white:hover { background: var(--parchment); }
+  .cta-btn-outline { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white); border: 1px solid rgba(255,255,255,0.5); padding: 0.85rem 1.75rem; text-decoration: none; transition: all 0.2s; white-space: nowrap; }
+  .cta-btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.1); }
+
+  /* FLOATING CTA BUTTON */
+  .float-cta { position: fixed; bottom: 2rem; right: 2rem; z-index: 200; display: flex; flex-direction: column; gap: 0.6rem; align-items: flex-end; }
+  .float-btn { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.8rem 1.4rem; text-decoration: none; white-space: nowrap; transition: all 0.2s; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+  .float-btn-primary { background: var(--red); color: var(--white); }
+  .float-btn-primary:hover { background: #a82020; }
+  .float-btn-secondary { background: var(--ink); color: var(--gold); border: 1px solid var(--gold); }
+  .float-btn-secondary:hover { background: var(--gold); color: var(--ink); }
+  @media (max-width: 768px) {
+    .cta-banner-inner { flex-direction: column; text-align: center; }
+    .cta-banner-actions { justify-content: center; }
+    .float-cta { bottom: 1rem; right: 1rem; }
+  }
+
 </style>
   <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 </head>
@@ -326,6 +351,22 @@
     </div>
   </div>
 </div>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <div class="cta-banner-inner">
+    <div class="cta-banner-text">
+      <h3>Ready to step on the mat?</h3>
+      <p>All levels welcome · No experience necessary · ~$100/mo includes full NOAC membership</p>
+    </div>
+    <div class="cta-banner-actions">
+      <a href="#inquiry" class="cta-btn-white">Inquire Now</a>
+      <a href="mailto:noackarate@gmail.com" class="cta-btn-outline">Email Us</a>
+      <a href="tel:+15045252375" class="cta-btn-outline">Call (504) 525-2375</a>
+    </div>
+  </div>
+</div>
+
 
 <!-- TRADITION -->
 <section id="tradition">
@@ -435,6 +476,21 @@
     </div>
   </div>
 </section>
+
+<!-- CTA BANNER 2 -->
+<div class="cta-banner">
+  <div class="cta-banner-inner">
+    <div class="cta-banner-text">
+      <h3>Have questions? We'd love to hear from you.</h3>
+      <p>Sensei Walsh personally responds to all inquiries</p>
+    </div>
+    <div class="cta-banner-actions">
+      <a href="#inquiry" class="cta-btn-white">Send an Inquiry</a>
+      <a href="tel:+15045252375" class="cta-btn-outline">Call (504) 525-2375</a>
+    </div>
+  </div>
+</div>
+
 
 <!-- RULES -->
 <section id="rules">
@@ -728,6 +784,29 @@
   </ul>
   <p class="footer-copy">© NOAC Karate Dojo · Louisiana Karate Association · JKA American Federation</p>
 </footer>
+
+
+<!-- FLOATING CTA -->
+<div class="float-cta" id="float-cta">
+  <a href="#inquiry" class="float-btn float-btn-primary">Inquire Now</a>
+  <a href="tel:+15045252375" class="float-btn float-btn-secondary">Call Us</a>
+</div>
+
+<script>
+  // Hide float CTA when inquiry form is visible
+  var floatCta = document.getElementById('float-cta');
+  var inquirySection = document.getElementById('inquiry');
+  window.addEventListener('scroll', function() {
+    var rect = inquirySection.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      floatCta.style.opacity = '0';
+      floatCta.style.pointerEvents = 'none';
+    } else {
+      floatCta.style.opacity = '1';
+      floatCta.style.pointerEvents = 'auto';
+    }
+  });
+</script>
 
 </body>
 </html>
