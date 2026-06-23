@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NOAC Karate Dojo · Traditional Shotokan Karate · New Orleans</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+JP:wght@300;400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Noto+Serif+JP:wght@300;400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --ink: #1a1410;
@@ -18,7 +18,7 @@
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
-  body { background: var(--white); color: var(--ink); font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px; line-height: 1.7; }
+  body { background: var(--white); color: var(--ink); font-family: 'Cormorant Garamond', Georgia, serif; font-size: 19px; line-height: 1.72; -webkit-font-smoothing: antialiased; }
 
   /* NAV */
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--ink); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 60px; border-bottom: 2px solid var(--gold); }
@@ -32,7 +32,7 @@
   .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 5rem 4rem 8rem 5rem; position: relative; z-index: 2; }
   .hero-kana { font-family: 'Noto Serif JP', serif; font-size: 5rem; color: var(--red); opacity: 0.2; line-height: 1; position: absolute; top: 80px; right: 3rem; writing-mode: vertical-rl; letter-spacing: 0.1em; pointer-events: none; }
   .hero-eyebrow { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.28em; color: var(--gold); text-transform: uppercase; margin-bottom: 1.5rem; }
-  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 5vw, 5.5rem); font-weight: 300; color: var(--white); line-height: 1.05; margin-bottom: 0.5rem; }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 5vw, 5.5rem); font-weight: 400; color: var(--white); line-height: 1.05; margin-bottom: 0.5rem; }
   .hero-title em { font-style: italic; color: var(--gold); }
   .hero-sub { font-family: 'Cormorant Garamond', serif; font-size: 1.08rem; color: rgba(245,240,232,0.6); margin-top: 1.5rem; max-width: 380px; font-style: italic; line-height: 1.75; }
   .hero-rule { width: 60px; height: 2px; background: var(--red); margin: 2rem 0; }
@@ -54,7 +54,7 @@
   section { scroll-margin-top: 60px; }
   .section-inner { max-width: 1100px; margin: 0 auto; padding: 6rem 2.5rem; }
   .section-label { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--red); margin-bottom: 1rem; }
-  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 300; line-height: 1.1; color: var(--ink); margin-bottom: 1.5rem; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 400; line-height: 1.1; color: var(--ink); margin-bottom: 1.5rem; }
   .section-title em { font-style: italic; color: var(--red); }
   .divider { width: 50px; height: 2px; background: var(--gold); margin: 2rem 0; }
 
@@ -70,13 +70,13 @@
   /* TRADITION */
   #tradition { background: var(--white); }
   .tradition-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 5rem; align-items: start; }
-  .tradition-body p { margin-bottom: 1.4rem; color: var(--mid); font-size: 1.05rem; }
+  .tradition-body p { margin-bottom: 1.4rem; color: var(--mid); font-size: 1.08rem; font-weight: 400; }
   .tradition-body h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.65rem; font-weight: 400; color: var(--ink); margin: 2.5rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--light); }
   .sensei-card { background: var(--ink); color: var(--white); padding: 2.5rem; position: sticky; top: 80px; }
   .sensei-card-label { font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
-  .sensei-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; font-weight: 300; margin-bottom: 0.4rem; }
+  .sensei-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; font-weight: 400; margin-bottom: 0.4rem; }
   .sensei-card .rank { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.18em; color: var(--gold); margin-bottom: 1.5rem; }
-  .sensei-card p { font-size: 0.93rem; line-height: 1.72; color: rgba(245,240,232,0.8); margin-bottom: 1rem; }
+  .sensei-card p { font-size: 1rem; line-height: 1.72; color: rgba(245,240,232,0.88); margin-bottom: 1rem; font-weight: 400; }
   .sensei-card-rule { width: 40px; height: 1px; background: var(--red); margin: 1.5rem 0; }
   .credential { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.7rem; }
   .credential-dot { width: 5px; height: 5px; background: var(--gold); border-radius: 50%; flex-shrink: 0; margin-top: 0.55rem; }
@@ -90,7 +90,7 @@
   .kun-item { display: grid; grid-template-columns: 2rem 1fr; gap: 1.5rem; align-items: baseline; padding: 1.1rem 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
   .kun-item:last-child { border-bottom: none; }
   .kun-num { font-family: 'Space Mono', monospace; font-size: 0.52rem; color: var(--red); letter-spacing: 0.1em; }
-  .kun-text { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: var(--white); font-weight: 300; }
+  .kun-text { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: var(--white); font-weight: 400; }
   .kun-jp { font-family: 'Noto Serif JP', serif; font-size: 0.72rem; color: rgba(245,240,232,0.35); display: block; margin-top: 0.2rem; }
 
   /* BEGINNERS */
@@ -124,7 +124,7 @@
   .rule-text strong { color: var(--white); font-weight: 600; }
   .osu-banner { margin-top: 4rem; padding: 3rem 4rem; background: var(--red); display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
   .osu-word { font-family: 'Noto Serif JP', serif; font-size: 5rem; color: rgba(255,255,255,0.15); line-height: 1; flex-shrink: 0; }
-  .osu-text h3 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: var(--white); font-style: italic; margin-bottom: 0.75rem; }
+  .osu-text h3 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400; color: var(--white); font-style: italic; margin-bottom: 0.75rem; }
   .osu-text p { font-size: 0.97rem; color: rgba(255,255,255,0.8); max-width: 560px; line-height: 1.68; }
 
   /* CURRICULUM */
@@ -151,7 +151,7 @@
   .level-badge { display: inline-block; font-family: 'Space Mono', monospace; font-size: 0.48rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.2rem 0.5rem; border: 1px solid var(--gold); color: var(--gold); }
   .contact-card { background: var(--ink); padding: 2.5rem; color: var(--white); position: sticky; top: 80px; }
   .contact-card .section-label { color: var(--gold); }
-  .contact-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; font-weight: 300; margin-bottom: 2rem; }
+  .contact-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; font-weight: 400; margin-bottom: 2rem; }
   .contact-item { margin-bottom: 1.5rem; }
   .contact-label { font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem; }
   .contact-value { font-size: 0.97rem; color: rgba(245,240,232,0.85); line-height: 1.55; }
@@ -168,7 +168,7 @@
   .event-item { display: grid; grid-template-columns: 80px 1fr; gap: 1.5rem; padding: 1.5rem 0; border-bottom: 1px solid var(--light); align-items: start; }
   .event-date-box { background: var(--red); color: var(--white); text-align: center; padding: 0.75rem 0.5rem; }
   .event-month { font-family: 'Space Mono', monospace; font-size: 0.48rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.75; }
-  .event-day { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; line-height: 1; font-weight: 300; }
+  .event-day { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; line-height: 1; font-weight: 400; }
   .event-title { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: var(--ink); margin-bottom: 0.3rem; }
   .event-desc { font-size: 0.82rem; color: rgba(61,43,31,0.55); font-family: 'Space Mono', monospace; letter-spacing: 0.03em; line-height: 1.5; }
 
@@ -197,6 +197,7 @@
     nav { padding: 0 1.25rem; }
     .nav-links { gap: 0.9rem; }
     .section-inner { padding: 4rem 1.5rem; }
+    body { font-size: 17px; }
     .hero-left { padding: 3rem 1.5rem 2rem; }
     footer { flex-direction: column; gap: 1.5rem; text-align: center; }
     .osu-banner { flex-direction: column; text-align: center; }
@@ -256,7 +257,7 @@
   /* CTA BANNER */
   .cta-banner { background: var(--red); }
   .cta-banner-inner { max-width: 1100px; margin: 0 auto; padding: 2.5rem 2.5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
-  .cta-banner-text h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; color: var(--white); font-style: italic; margin-bottom: 0.25rem; }
+  .cta-banner-text h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 400; color: var(--white); font-style: italic; margin-bottom: 0.25rem; }
   .cta-banner-text p { font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.65); }
   .cta-banner-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
   .cta-btn-white { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); background: var(--white); padding: 0.85rem 1.75rem; text-decoration: none; transition: all 0.2s; white-space: nowrap; }
@@ -311,7 +312,7 @@
     <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:2.5rem;">
       <a href="#inquiry" class="hero-cta">Inquire Now</a>
       <a href="mailto:noackarate@gmail.com" class="hero-cta-ghost">Email Us</a>
-      <a href="https://www.neworleansathleticclub.com/join" target="_blank" class="hero-cta-ghost">Join NOAC</a>
+      <a href="https://www.neworleansathleticclub.com/membership" target="_blank" class="hero-cta-ghost">Join NOAC</a>
     </div>
   </div>
   <div class="hero-right">
